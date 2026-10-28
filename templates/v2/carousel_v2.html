@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<style>
+:root{--bg:#F3F5F8;--card:#FFFFFF;--line:#E2E7EE;--ink:#0A1628;--muted:#5A6A80;--cyan:#0FB2D4;--cyan2:#E3F7FC;--red:#EF4444;--red2:#FDECEC;--green:#16A34A;--wa:#25D366;--navy:#0B1B2E}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#999;font-family:"Inter",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.slide{width:1080px;height:1350px;background:var(--bg);position:relative;overflow:hidden;padding:72px 80px;display:flex;flex-direction:column}
+.slide.dark{background:var(--navy);color:#fff}
+.top{display:flex;align-items:center;justify-content:space-between;height:52px}
+.top img{height:46px}
+.dark .top img{filter:brightness(0) invert(1)}
+.prog{display:flex;gap:8px;align-items:center;font:600 22px Inter;color:var(--muted);letter-spacing:.02em}
+.prog i{display:block;width:34px;height:6px;border-radius:3px;background:var(--line)}
+.prog i.on{background:var(--cyan)}
+.dark .prog{color:#8FA3BC}.dark .prog i{background:#22344B}.dark .prog i.on{background:var(--cyan)}
+.kicker{margin-top:84px;font:700 24px Inter;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.num{margin-top:70px;font:700 30px "Inter Display";color:var(--cyan);letter-spacing:.04em}
+h1{font-family:"Inter Display";font-weight:700;font-size:92px;line-height:1.0;letter-spacing:-.04em;margin-top:22px}
+h1 em{font-style:normal;color:var(--cyan)}
+h2{font-family:"Inter Display";font-weight:700;font-size:76px;line-height:1.04;letter-spacing:-.035em;margin-top:18px}
+.sub{font:500 32px/1.35 Inter;color:var(--muted);margin-top:26px;max-width:860px}
+.dark .sub{color:#A9B8CB}
+.fix{margin-top:auto;display:flex;gap:22px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:30px 34px}
+.fix b{flex:none;font:700 20px Inter;letter-spacing:.12em;color:#fff;background:var(--ink);border-radius:999px;padding:9px 18px;margin-top:4px}
+.fix p{font:600 31px/1.32 Inter;color:var(--ink)}
+.foot{display:flex;justify-content:space-between;align-items:center;margin-top:34px;font:600 22px Inter;color:var(--muted)}
+.dark .foot{color:#8FA3BC}
+.stage{flex:1;display:flex;align-items:center;justify-content:center;padding:30px 0}
+/* phone notifications */
+.notifs{width:780px;display:flex;flex-direction:column;gap:16px}
+.n{display:flex;align-items:center;gap:22px;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:24px 28px;box-shadow:0 18px 40px -24px rgba(10,22,40,.35)}
+.n .ic{width:62px;height:62px;border-radius:18px;background:var(--red2);display:grid;place-items:center}
+.n .t{flex:1}.n .t div:first-child{font:700 27px Inter}.n .t div:last-child{font:500 23px Inter;color:var(--muted);margin-top:4px}
+.n time{font:600 22px Inter;color:var(--muted)}
+.n.f2{transform:scale(.96);opacity:.85}.n.f3{transform:scale(.92);opacity:.6}
+.badge{align-self:flex-start;font:700 24px Inter;color:var(--red);background:var(--red2);border-radius:999px;padding:10px 20px;margin-bottom:6px}
+/* flow */
+.flow{width:860px;display:flex;flex-direction:column;gap:0;align-items:stretch}
+.fnode{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:28px 32px;display:flex;align-items:center;gap:24px}
+.av{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font:700 28px Inter;color:#fff}
+.fnode .t{flex:1}.fnode .t div:first-child{font:700 30px Inter}.fnode .t div:last-child{font:500 24px Inter;color:var(--muted);margin-top:4px}
+.pill{font:700 22px Inter;border-radius:999px;padding:10px 18px}
+.pill.r{color:var(--red);background:var(--red2)}.pill.g{color:var(--green);background:#E6F6EC}
+.conn{height:86px;margin-left:66px;border-left:3px dashed #B9C4D2;position:relative}
+.conn span{position:absolute;left:28px;top:24px;font:600 22px Inter;color:var(--muted)}
+/* dashboard */
+.dash{width:880px;background:var(--card);border:1px solid var(--line);border-radius:30px;padding:36px;box-shadow:0 30px 60px -36px rgba(10,22,40,.35)}
+.dh{display:flex;justify-content:space-between;font:700 24px Inter;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.kpi{background:var(--bg);border-radius:20px;padding:22px}
+.kpi div:first-child{font:600 21px Inter;color:var(--muted)}.kpi div:last-child{font:700 58px "Inter Display";letter-spacing:-.03em;margin-top:6px}
+.bars{display:flex;align-items:flex-end;gap:14px;height:230px;margin-top:30px;border-bottom:2px solid var(--line);padding:0 6px}
+.bars div{flex:1;border-radius:10px 10px 4px 4px;background:var(--cyan);position:relative}
+.bars div.m{background:var(--red)}
+.lbl{display:flex;gap:14px;padding:12px 6px 0;font:600 18px Inter;color:var(--muted)}.lbl span{flex:1;text-align:center}
+/* call screen */
+.call{width:600px;background:#0F2238;border:1px solid #22344B;border-radius:56px;padding:44px 40px;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+.call .st{text-align:center;font:600 22px Inter;color:#8FA3BC}
+.call .nm{text-align:center;font:700 40px "Inter Display";margin-top:10px}
+.call .tm{text-align:center;font:600 24px Inter;color:var(--cyan);margin-top:8px}
+.wave{display:flex;gap:7px;justify-content:center;align-items:center;height:70px;margin:26px 0}
+.wave i{display:block;width:8px;border-radius:4px;background:var(--cyan)}
+.bub{font:500 25px/1.35 Inter;border-radius:24px;padding:18px 22px;margin-top:14px;max-width:88%}
+.bub.c{background:#1C3049;color:#DCE6F2}
+.bub.a{background:var(--cyan);color:#04202A;margin-left:auto;font-weight:600}
+/* locations */
+.locs{width:880px;display:grid;grid-template-columns:1fr;gap:18px}
+.loc{display:flex;align-items:center;gap:24px;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:26px 30px}
+.loc .ic{width:66px;height:66px;border-radius:20px;background:var(--cyan2);display:grid;place-items:center}
+.loc .t{flex:1}.loc .t div:first-child{font:700 30px Inter}.loc .t div:last-child{font:500 23px Inter;color:var(--muted);margin-top:4px}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--green);display:inline-block;margin-right:10px;box-shadow:0 0 0 6px #DDF3E5}
+.cloudtag{align-self:center;font:700 22px Inter;color:var(--cyan);background:var(--cyan2);border-radius:999px;padding:10px 22px;margin-bottom:6px}
+/* cta */
+.checks{margin-top:46px;display:flex;flex-direction:column;gap:20px}
+.checks div{display:flex;align-items:center;gap:20px;font:600 34px Inter}
+.checks svg{flex:none}
+.btn{margin-top:auto;background:var(--wa);color:#04210F;border-radius:32px;padding:38px 44px;display:flex;align-items:center;justify-content:space-between}
+.btn .l div:first-child{font:600 26px Inter;opacity:.8}.btn .l div:last-child{font:800 54px "Inter Display";letter-spacing:-.02em;margin-top:4px}
+.btn .r{font:700 34px Inter;text-align:right}
+</style></head><body>
+
+<!-- C1 -->
+<section class="slide" id="c1">
+ <div class="top"><img src="logo.png"><div class="prog"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div>
+ <div class="kicker">Guía rápida para PYMES</div>
+ <h1>4 señales de que pierdes <em>ventas</em> por teléfono.</h1>
+ <div class="stage"><div class="notifs">
+  <div class="badge">● 3 llamadas perdidas hoy</div>
+  <div class="n"><div class="ic"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.4" stroke-linecap="round"><path d="M16 3l5 5M21 3l-5 5"/><path d="M5 4h3l2 5-2.5 1.5a11 11 0 005 5L14 13l5 2v3a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg></div><div class="t"><div>Llamada perdida</div><div>Cliente nuevo · (809) 5•• ••12</div></div><time>12:41</time></div>
+  <div class="n f2"><div class="ic"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.4" stroke-linecap="round"><path d="M16 3l5 5M21 3l-5 5"/><path d="M5 4h3l2 5-2.5 1.5a11 11 0 005 5L14 13l5 2v3a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg></div><div class="t"><div>Llamada perdida</div><div>(829) 3•• ••87</div></div><time>12:58</time></div>
+  <div class="n f3"><div class="ic"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.4" stroke-linecap="round"><path d="M16 3l5 5M21 3l-5 5"/><path d="M5 4h3l2 5-2.5 1.5a11 11 0 005 5L14 13l5 2v3a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg></div><div class="t"><div>Llamada perdida</div><div>(849) 7•• ••30</div></div><time>18:07</time></div>
+ </div></div>
+ <div class="foot"><span>La #3 le pasa a casi todo negocio que cierra a las 6.</span><span style="color:var(--ink)">Desliza →</span></div>
+</section>
+
+<!-- C2 -->
+<section class="slide" id="c2">
+ <div class="top"><img src="logo.png"><div class="prog"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
+ <div class="num">01</div>
+ <h2>“Te llamé y nadie contestó.”</h2>
+ <div class="stage"><div class="flow">
+  <div class="fnode"><div class="av" style="background:#94A3B8">R</div><div class="t"><div>Recepción</div><div>Sonó 20 segundos</div></div><span class="pill r">No contesta</span></div>
+  <div class="conn"><span>Desvío automático</span></div>
+  <div class="fnode" style="border-color:#BFE9D0"><div class="av" style="background:var(--cyan)">V</div><div class="t"><div>Ventas · celular</div><div>Atendida en 8 s</div></div><span class="pill g">✓ Contestada</span></div>
+ </div></div>
+ <div class="fix"><b>SOLUCIÓN</b><p>Si nadie atiende, la llamada pasa sola al celular de otro miembro del equipo.</p></div>
+ <div class="foot"><span>zysolutionsrd.com</span><span style="color:var(--ink)">→</span></div>
+</section>
+
+<!-- C3 -->
+<section class="slide" id="c3">
+ <div class="top"><img src="logo.png"><div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div></div>
+ <div class="num">02</div>
+ <h2>No sabes cuántas llamadas entraron ayer.</h2>
+ <div class="stage"><div class="dash">
+  <div class="dh"><span>Llamadas · ayer</span><span style="color:var(--cyan)">● En vivo</span></div>
+  <div class="kpis"><div class="kpi"><div>Entrantes</div><div>47</div></div><div class="kpi"><div>Contestadas</div><div style="color:var(--green)">39</div></div><div class="kpi"><div>Perdidas</div><div style="color:var(--red)">8</div></div></div>
+  <div class="bars"><div style="height:35%"></div><div style="height:62%"></div><div style="height:88%"></div><div class="m" style="height:40%"></div><div style="height:72%"></div><div style="height:96%"></div><div style="height:58%"></div><div class="m" style="height:30%"></div><div style="height:44%"></div></div>
+  <div class="lbl"><span>8a</span><span>9a</span><span>10a</span><span>11a</span><span>12p</span><span>2p</span><span>3p</span><span>4p</span><span>5p</span></div>
+ </div></div>
+ <div class="fix"><b>SOLUCIÓN</b><p>Reportes en tiempo real: quién llamó, quién contestó y quién no.</p></div>
+ <div class="foot"><span>zysolutionsrd.com</span><span style="color:var(--ink)">→</span></div>
+</section>
+
+<!-- C4 -->
+<section class="slide dark" id="c4">
+ <div class="top"><img src="logo.png"><div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
+ <div class="num">03</div>
+ <h2>Después de las 6 PM, tu negocio “no existe”.</h2>
+ <div class="stage"><div class="call">
+  <div class="st">Llamada entrante · 9:47 PM</div>
+  <div class="nm">Agente de voz ZY</div>
+  <div class="tm">00:42</div>
+  <div class="wave"><i style="height:20px"></i><i style="height:44px"></i><i style="height:66px"></i><i style="height:36px"></i><i style="height:58px"></i><i style="height:26px"></i><i style="height:50px"></i><i style="height:68px"></i><i style="height:30px"></i><i style="height:46px"></i><i style="height:18px"></i></div>
+  <div class="bub c">¿Están abiertos mañana temprano?</div>
+  <div class="bub a">Sí, desde las 8. ¿Le reservo una cita a las 9?</div>
+ </div></div>
+ <div class="fix" style="background:#132A42;border-color:#22344B"><b style="background:var(--cyan);color:#04202A">SOLUCIÓN</b><p style="color:#fff">Un agente de IA contesta, responde preguntas y agenda, con la oficina cerrada.</p></div>
+ <div class="foot"><span>zysolutionsrd.com</span><span style="color:#fff">→</span></div>
+</section>
+
+<!-- C5 -->
+<section class="slide" id="c5">
+ <div class="top"><img src="logo.png"><div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>
+ <div class="num">04</div>
+ <h2>Cambias de local y tu central se queda atrás.</h2>
+ <div class="stage"><div class="locs">
+  <div class="cloudtag">☁ Tu central en la nube</div>
+  <div class="loc"><div class="ic"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#0FB2D4" stroke-width="2.2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M10 21v-4h4v4"/></svg></div><div class="t"><div>Oficina principal</div><div>Ext. 101 · 102 · 103</div></div><span style="font:600 22px Inter"><span class="dot"></span>En línea</span></div>
+  <div class="loc"><div class="ic"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#0FB2D4" stroke-width="2.2"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6h-6v6H4a1 1 0 01-1-1z"/></svg></div><div class="t"><div>Desde casa</div><div>Ext. 104 · app en el celular</div></div><span style="font:600 22px Inter"><span class="dot"></span>En línea</span></div>
+  <div class="loc"><div class="ic"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#0FB2D4" stroke-width="2.2"><path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6"/></svg></div><div class="t"><div>Nueva sucursal</div><div>Ext. 201 · 202</div></div><span style="font:600 22px Inter"><span class="dot"></span>En línea</span></div>
+ </div></div>
+ <div class="fix"><b>SOLUCIÓN</b><p>Te mudas, trabajas desde casa o abres sucursal: las mismas extensiones, en cualquier lugar.</p></div>
+ <div class="foot"><span>zysolutionsrd.com</span><span style="color:var(--ink)">→</span></div>
+</section>
+
+<!-- C6 -->
+<section class="slide dark" id="c6">
+ <div class="top"><img src="logo.png"><div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+ <div class="kicker">¿Te identificaste con 2 o más?</div>
+ <h1 style="font-size:88px">Te hacemos un <em>diagnóstico gratis</em> de tus llamadas.</h1>
+ <div class="checks">
+  <div><svg width="44" height="44" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#0FB2D4"/><path d="M7 12.5l3 3 7-7" stroke="#04202A" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>15 días de prueba gratis</div>
+  <div><svg width="44" height="44" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#0FB2D4"/><path d="M7 12.5l3 3 7-7" stroke="#04202A" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>Sin contrato forzoso</div>
+  <div><svg width="44" height="44" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#0FB2D4"/><path d="M7 12.5l3 3 7-7" stroke="#04202A" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>Instalación en 24 horas</div>
+ </div>
+ <div class="btn"><div class="l"><div>Escribe por WhatsApp</div><div>DIAGNÓSTICO</div></div><div class="r">809-633-1000</div></div>
+ <div class="foot"><span>zysolutionsrd.com</span><span>@zysolutionssrl</span></div>
+</section>
+</body></html>
